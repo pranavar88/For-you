@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>With Love from your Dear Pranu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        .header {
+            position: absolute;
+            top: 5%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24px;
+            font-style: italic;
+            font-family: 'Poetsen One', cursive;
+        }
+        .clock {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .options {
+            position: absolute;
+            bottom: 10%;
+            left: 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .option {
+            padding: 15px 30px;
+            background: linear-gradient(20deg, #62e498, #1e9600);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: opacity 0.5s ease-in-out;
+            display: none;
+        }
+        .popup {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 150, 0.7);
+            display: none;
+            font-size: 24px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            width: 30vw;
+        }
+        .home-button {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            padding: 10px 20px;
+            background: #23D16F;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+            display: none;
+        }
+        .home-button:hover {
+            background: #1FAF5C;
+        }
+    </style>
+</head>
+<body>
+    <video id="bgVideo" autoplay loop muted>
+        <source id="bgVideoSource" src="video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <button class="home-button" id="homeButton" onclick="goHome()">Okay now click me to get to the home page</button>
+    
+    <div class="header">
+        <div class="title"> <h2> <i>Riyuuuuuuuuuuuuuu!!!!! </i></h2></div>
+        <div class="clock" id="clock"></div>
+    </div>
+    
+    <div class="options">
+        <button class="option" id="btn1" onclick="changeBackground(1)">Okay So Click Me....</button>
+        <button class="option" id="btn2" onclick="changeBackground(2)">Now Me hehehe.....</button>
+        <button class="option" id="btn3" onclick="changeBackground(3)">Okay Finally Click me</button>
+    </div>
+    
+    <div class="popup" id="popup">
+        <p id="popupMessage"></p>
+    </div>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        document.getElementById("btn1").style.display = "block";
+
+        function changeBackground(num) {
+            const messages = [
+                "I love you and I miss you! ❤️ A lot... A lot more than you think but yeah hopefully we get together soon enough..", 
+                "I swear to god LONG DISTANCE SUCKS... I wish we were together! Holding hands and walking in the snowy Himalayas at Leh, You don't know how much I dream of that 😢", 
+                "I want this distance to be over soon so I can hold you in my arms 💕  I Love You *kisses* "
+            ];
+            const bgVideos = [
+                "popup1.mp4", 
+                "popup2.mp4", 
+                "popup3.mp4"
+            ];
+            
+            let popup = document.getElementById('popup');
+            let message = document.getElementById('popupMessage');
+            let bgVideo = document.getElementById('bgVideo');
+            let bgVideoSource = document.getElementById('bgVideoSource');
+            
+            message.innerText = messages[num - 1];
+            popup.style.display = 'block';
+            popup.style.opacity = '0';
+            setTimeout(() => popup.style.opacity = '1', 100);
+            
+            bgVideo.style.opacity = '0';
+            setTimeout(() => {
+                bgVideoSource.src = bgVideos[num - 1];
+                bgVideo.load();
+                bgVideo.style.opacity = '1';
+            }, 1000);
+            
+            if (num === 1) {
+                document.getElementById("btn1").style.display = "none";
+                document.getElementById("btn2").style.display = "block";
+            } else if (num === 2) {
+                document.getElementById("btn2").style.display = "none";
+                document.getElementById("btn3").style.display = "block";
+            } else if (num === 3) {
+                document.getElementById("homeButton").style.display = "block";
+            }
+        }
+
+        function goHome() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
